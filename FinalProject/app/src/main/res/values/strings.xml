@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">FinalProject</string>
+    <string name="username">User Name</string>
+    <string name="password">Password</string>
+    <string name="signup">Sign Up</string>
+    <string name="login">Login</string>
+    <string name="firstname">First Name</string>
+    <string name="lastname">Last Name</string>
+    <string name="email">Email</string>
+    <string name="blankUsername">Please Enter your username</string>
+    <string name="blankFirstName">Please enter your first name</string>
+    <string name="blankLastName">Please enter your last name</string>
+    <string name="blankPassword">Please enter your pasword</string>
+    <string name="blankEmail">Please enter your pasword</string>
+    <string name="invalidlogin">Invalid username or password</string>
+    <string name="hostNotification">Hosted Events: </string>
+    <string name="invitedNotification">Invited Events:  </string>
+    <string name="viewEventsButton">See Events:  </string>
+    <string name="myEvents">Hosted Events</string>
+    <string name="upcomingEvents">Upcoming Events</string>
+
+
+</resources>
