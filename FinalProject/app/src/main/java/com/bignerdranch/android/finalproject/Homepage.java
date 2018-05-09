@@ -21,7 +21,6 @@ public class Homepage extends AppCompatActivity {
 private TextView welcomeTextView;
 private TextView invitedNotification;
 private Button createEvent;
-private Button viewInvitedEvents;
 private Button viewHostedEvents;
 private Button viewUpcomingEvents;
 private static final String FILENAME = "UserFile";
@@ -41,7 +40,6 @@ private User user;
         welcomeTextView = (TextView) findViewById(R.id.welcome);
         invitedNotification = (TextView) findViewById(R.id.invitedNotification);
         createEvent = (Button) findViewById(R.id.createEvent);
-        viewInvitedEvents = (Button) findViewById(R.id.goToInvitedButton);
         viewHostedEvents = (Button) findViewById(R.id.goToHostedButton);
         viewUpcomingEvents = (Button) findViewById(R.id.upcoming);
         loadData();
@@ -60,7 +58,7 @@ private User user;
             }
         });
 
-        viewInvitedEvents.setOnClickListener(new View.OnClickListener() {
+        invitedNotification.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 displayInvitedEvent();
