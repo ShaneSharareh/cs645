@@ -103,7 +103,7 @@ private User user;
     }
 
     public void goToCreateEventPage(){
-        Intent intent = new Intent(this, CreateEventTest.class);
+        Intent intent = new Intent(this, CreateEventActivity.class);
         startActivity(intent);
     }
 

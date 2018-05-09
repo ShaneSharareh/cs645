@@ -3,6 +3,7 @@
     package="com.bignerdranch.android.finalproject">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -24,7 +25,15 @@
         <activity android:name=".DisplayInvitedNotifications" />
         <activity android:name=".ViewEventTest" />
         <activity android:name=".DisplayHostedEvents" />
-        <activity android:name=".DisplayUpcomingEvents"></activity>
+        <activity android:name=".DisplayUpcomingEvents" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_place_api" />
+        <activity
+            android:name=".CreateEventActivity"
+            android:label="@string/title_activity_create_event"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

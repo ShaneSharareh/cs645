@@ -18,6 +18,15 @@
     <string name="viewEventsButton">See Events:  </string>
     <string name="myEvents">Hosted Events</string>
     <string name="upcomingEvents">Upcoming Events</string>
+    <string name="title_activity_create_event">CreateEventActivity</string>
 
+
+    <string name="google_place_api">AIzaSyCXw03gl41z67U12Lp-QY3aHCyx_z8hLMU</string>
+    <string name="action_settings">Settings</string>
+    <string name="eventTitle">Event Title</string>
+    <string name="date">Date, Time</string>
+    <string name="location">Location</string>
+    <string name="info">More Info</string>
+    <string name="createbtn">Create</string>
 
 </resources>
