@@ -65,6 +65,7 @@ private static final String FILENAME = "UserFile";
         usersRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                Boolean foundUser = false;
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
                // Log.e("Count " ,"Count:"+dataSnapshot.getChildrenCount());
@@ -73,12 +74,15 @@ private static final String FILENAME = "UserFile";
                     if(newUsername.equals(user.getUsername()) && newPassword.equals(user.getPassword())){
                         saveUserLogin(user);
                         goToHomepage();
-                    }
-                    else{
-                        error.setText(getResources().getString(R.string.invalidlogin));
+                        foundUser = true;
                     }
                     Log.e("GetData", user.getUsername());
                 }
+                if(foundUser ==false){
+                    error.setText(getResources().getString(R.string.invalidlogin));
+
+                }
+
             }
 
             @Override
