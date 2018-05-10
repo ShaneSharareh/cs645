@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">FinalProject</string>
-    <string name="username">User Name</string>
+    <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="signup">Sign Up</string>
     <string name="login">Login</string>
@@ -19,6 +19,10 @@
     <string name="myEvents">Hosted Events</string>
     <string name="upcomingEvents">Upcoming Events</string>
     <string name="title_activity_create_event">CreateEventActivity</string>
+    <string name="usernameexist">Username already exists!</string>
+    <string name="emailexist">Email already exists!</string>
+
+
 
 
     <string name="google_place_api">AIzaSyCXw03gl41z67U12Lp-QY3aHCyx_z8hLMU</string>
