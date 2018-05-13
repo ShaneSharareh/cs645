@@ -33,6 +33,7 @@ public class CreateEventActivity extends AppCompatActivity implements DatePicker
     Button locationPickerBtn;
     Button createButton;
     EditText descriptionText;
+    Button cancelButton;
 
     int PLACE_PICKER_REQUEST =1;
 
@@ -58,6 +59,17 @@ public class CreateEventActivity extends AppCompatActivity implements DatePicker
         locationPickerBtn = (Button) findViewById(R.id.locationpickerBtn);
 
         descriptionText = (EditText) findViewById(R.id.descText);
+
+        cancelButton = (Button) findViewById(R.id.cancelbutton);
+
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CreateEventActivity.this, Homepage.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
 
         eventTitle.addTextChangedListener(new TextWatcher() {
