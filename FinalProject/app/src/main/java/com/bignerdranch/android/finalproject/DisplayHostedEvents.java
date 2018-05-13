@@ -72,7 +72,7 @@ public class DisplayHostedEvents extends AppCompatActivity {
                 // Log.e("Count " ,"Count:"+dataSnapshot.getChildrenCount());
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
                     Event event = child.getValue(Event.class);
-                    ArrayList<String> guestList = event.getGuestList();
+                    ArrayList<User> guestList = event.getGuestList();
                     if (username.equals(event.getHostname())) {
                         eventList.add(event.getDate()+" "+event.getName());
                     }

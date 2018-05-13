@@ -123,7 +123,7 @@ public class ViewEventTest extends AppCompatActivity {
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
                     Event event = child.getValue(Event.class);
                     if(event.getName().equals(eventName)){
-                        event.removeFromPendingList(username);
+                        event.removeFromPendingList(user);
                         eventRef.child(eventName).child("pendingList").setValue(event.getPendingList());
                         break;
                     }
@@ -150,11 +150,12 @@ public class ViewEventTest extends AppCompatActivity {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
                 // Log.e("Count " ,"Count:"+dataSnapshot.getChildrenCount());
+
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
                     Event event = child.getValue(Event.class);
                     if(event.getName().equals(eventName)){
-                        event.removeFromPendingList(username);
-                        event.addToGuestList(username);
+                        event.removeFromPendingList(user);
+                        event.addToGuestList(user);
 
                        eventRef.child(eventName).child("guestList").setValue(event.getGuestList());
                         eventRef.child(eventName).child("pendingList").setValue(event.getPendingList());

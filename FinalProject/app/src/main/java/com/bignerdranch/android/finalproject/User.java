@@ -4,6 +4,9 @@ import java.io.Serializable;
 
 /**
  * Created by shanesharareh on 5/6/18.
+ *
+ * Updated by Ali Minaei on 5/11/2018:
+ * Added boolean selected variable and setSelected, isSelected methods.
  */
 
 public class User implements Serializable {
@@ -13,6 +16,7 @@ public class User implements Serializable {
     private String email;
     private String password;
     private String image;
+    private boolean selected;
     public User(){
 
     }
@@ -24,6 +28,7 @@ public class User implements Serializable {
         this.username = username;
         this.email = email;
         this.password = password;
+        this.selected=false;
 
 
     }
@@ -74,5 +79,12 @@ public class User implements Serializable {
 
     public String getImage() {
         return image;
+    }
+
+    public void setSelected(boolean selected){
+        this.selected = selected;
+    }
+    public boolean isSelected(){
+        return this.selected;
     }
 }
