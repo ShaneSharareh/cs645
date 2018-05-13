@@ -41,12 +41,17 @@ public class UsersListAdapter extends RecyclerView.Adapter<UsersListAdapter.View
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
 
-
+        String userImgUrl = "https://firebasestorage.googleapis.com/v0/b/cs646-f50aa.appspot.com/o/cs645_UserImg%2Fuser.png?alt=media&token=50d17bc7-5b35-47e6-9f90-da0cc83f3097";
         User user = userList.get(position);
 
 
-        Picasso.get().load(user.getImage())
-                .into(holder.imageView);
+        if(user.getImage().equals(""))
+            Picasso.get().load(userImgUrl)
+                    .into(holder.imageView);
+        else
+            Picasso.get().load(user.getImage())
+                    .into(holder.imageView);
+
 
         holder.username.setText(user.getUsername());
 
