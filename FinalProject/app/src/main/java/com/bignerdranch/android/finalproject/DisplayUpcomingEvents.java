@@ -73,9 +73,9 @@ public class DisplayUpcomingEvents extends AppCompatActivity {
                 // Log.e("Count " ,"Count:"+dataSnapshot.getChildrenCount());
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
                     Event event = child.getValue(Event.class);
-                    ArrayList<String> guestList = event.getGuestList();
+                    ArrayList<User> guestList = event.getGuestList();
                     for(int i=0; i<guestList.size(); i++) {
-                        if (username.equals(guestList.get(i))) {
+                        if (username.equals(guestList.get(i).getUsername())) {
                             eventList.add(event.getDate()+" "+event.getName());
                         }
                     }

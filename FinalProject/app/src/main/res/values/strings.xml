@@ -23,14 +23,17 @@
     <string name="emailexist">Email already exists!</string>
 
 
-
-
     <string name="google_place_api">AIzaSyCXw03gl41z67U12Lp-QY3aHCyx_z8hLMU</string>
     <string name="action_settings">Settings</string>
     <string name="eventTitle">Event Title</string>
+    <string name="eventDesc">Description</string>
     <string name="date">Date, Time</string>
     <string name="location">Location</string>
     <string name="info">More Info</string>
     <string name="createbtn">Create</string>
+    <string name="title_activity_user_invite">userInvite</string>
+    <string name="title_activity_event_summary">EventSummary</string>
+    <string name="title_activity_test">test</string>
+
 
 </resources>

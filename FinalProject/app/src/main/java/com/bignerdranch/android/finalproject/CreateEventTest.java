@@ -46,8 +46,14 @@ public class CreateEventTest extends AppCompatActivity {
             public void onClick(View view) {
                 Event event = new Event(username, eventNameView.getText().toString(), eventDescriptionView.getText().toString(), eventDateView.getText().toString(), eventLocationView.getText().toString());
 
-                event.addToPendingList(guest1View.getText().toString());
-                event.addToPendingList(guest2View.getText().toString());
+                // Updated the addToPendingList input type from username to user!!!
+                User user1 = new User();
+                User user2 = new User();
+                user1.setUsername(guest1View.getText().toString());
+                user2.setUsername(guest2View.getText().toString());
+
+                event.addToPendingList(user1);
+                event.addToPendingList(user2);
                 DatabaseReference myRef = eventRef.child(event.getName());
                 myRef.setValue(event);
 

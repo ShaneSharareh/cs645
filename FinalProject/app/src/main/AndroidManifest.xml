@@ -26,14 +26,15 @@
         <activity android:name=".ViewEventTest" />
         <activity android:name=".DisplayHostedEvents" />
         <activity android:name=".DisplayUpcomingEvents" />
+        <activity android:name=".CreateEventActivity" />
+        <activity android:name=".userInvite" />
+        <activity android:name=".EventSummary" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_place_api" />
-        <activity
-            android:name=".CreateEventActivity"
-            android:label="@string/title_activity_create_event"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+
+
     </application>
 
 </manifest>
