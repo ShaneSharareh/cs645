@@ -104,6 +104,7 @@ private User user;
 
     public void goToCreateEventPage(){
         Intent intent = new Intent(this, CreateEventActivity.class);
+        intent.putExtra("Hostname", username);
         startActivity(intent);
     }
 

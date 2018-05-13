@@ -39,6 +39,7 @@ public class CreateEventActivity extends AppCompatActivity implements DatePicker
     int day, month, year, hour, minutes;
     int dayFinal, monthFinal, yearFinal, hourFinal, minuteFinal;
     String monthName, dayFinalStr,monthFinalStr, yearFinalStr, hourFinalStr, minuteFinalStr;
+    String username;
 
     Event event = new Event();
 
@@ -47,7 +48,8 @@ public class CreateEventActivity extends AppCompatActivity implements DatePicker
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_event);
-
+        Intent receivingIntent = getIntent();
+        username = receivingIntent.getStringExtra("Hostname");
         createButton = (Button) findViewById(R.id.createbtn);
 
         timePickerBtn = (Button) findViewById(R.id.timepickerBtn);
@@ -139,6 +141,7 @@ public class CreateEventActivity extends AppCompatActivity implements DatePicker
         createButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                event.setHostname(username);
                 Intent intent = new Intent(CreateEventActivity.this, userInvite.class);
                 intent.putExtra("newEvent", event);
                 startActivity(intent);

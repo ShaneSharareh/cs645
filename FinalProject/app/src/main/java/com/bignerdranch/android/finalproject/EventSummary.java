@@ -34,7 +34,7 @@ public class EventSummary extends AppCompatActivity {
 
 
         String evenSummaryStr = "Event: "+event.getName()+"\n\n" +
-                "Hosted by: "+"\n\n"+
+                "Hosted by: "+event.getHostname()+"\n\n"+
                 "Description: "+event.getDescription()+"\n\n" +
                 "Time: "+event.getDate() + "\n\n" +
                 "Location: "+event.getLocation();
