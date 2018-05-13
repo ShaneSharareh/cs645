@@ -19,13 +19,14 @@ import java.util.List;
 
 public class UsersListAdapter extends RecyclerView.Adapter<UsersListAdapter.ViewHolder> {
 
-    List<User> userList;
+    private List<User> userList;
     private SparseBooleanArray itemStateArray= new SparseBooleanArray();
     private Context context;
     private StorageReference storageReference;
 
 
     public UsersListAdapter(List<User> user, Context context){
+
         this.userList = user;
         this.context = context;
 

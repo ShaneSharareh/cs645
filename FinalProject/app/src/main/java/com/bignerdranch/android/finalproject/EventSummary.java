@@ -1,5 +1,6 @@
 package com.bignerdranch.android.finalproject;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -49,6 +50,12 @@ public class EventSummary extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(mAdapter);
 
+    }
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, Homepage.class);
+        startActivity(intent);
+        finish();
     }
 
 }

@@ -31,6 +31,8 @@ public class userInvite extends AppCompatActivity {
 
 
     public List<User> userList= new ArrayList<>();
+    public List<User> userListFromAdapter= new ArrayList<>();
+    public List<User> users = new ArrayList<>();
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
@@ -65,15 +67,14 @@ public class userInvite extends AppCompatActivity {
         //String key = eventRef.child("TEsting").push().getKey();
         // Log.i("--- TEsting Key --- ",key);
         //User joe = new User("","joe", "lastName", "username", "email", "password");
-//        Event testEvent = new Event();
 
-//        eventRef.child("TEsting").child("guestList").child("joe").setValue(joe);
         eventRef.child(event.getName()).setValue(event);
 
 
         usersRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                userList.clear();
 
 
                 for (DataSnapshot child: dataSnapshot.getChildren()) {
@@ -92,7 +93,10 @@ public class userInvite extends AppCompatActivity {
                 recyclerView.setLayoutManager(layoutManager);
                 recyclerView.setAdapter(mAdapter);
 
-                List<User> users = ((UsersListAdapter) mAdapter).getUserList();
+//                List<User> users = ((UsersListAdapter) mAdapter).getUserList();
+                userListFromAdapter.clear();
+                userListFromAdapter = ((UsersListAdapter) mAdapter).getUserList();
+                Log.i("-- userListFromAdapter -- ",userListFromAdapter.toString());
 
 
 
@@ -113,7 +117,10 @@ public class userInvite extends AppCompatActivity {
 
                     @Override
                     public void onClick(View v) {
-                        List<User> users = ((UsersListAdapter) mAdapter).getUserList();
+                        users.clear();
+                        users = ((UsersListAdapter) mAdapter).getUserList();
+
+
                         for (int i = 0; i < users.size(); i++) {
                             User userInfo = new User();
                             User user = users.get(i);
