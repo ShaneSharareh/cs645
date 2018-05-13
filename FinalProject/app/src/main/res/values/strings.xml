@@ -34,6 +34,7 @@
     <string name="title_activity_user_invite">userInvite</string>
     <string name="title_activity_event_summary">EventSummary</string>
     <string name="title_activity_test">test</string>
+    <string name="logout">Logout</string>
 
 
 </resources>

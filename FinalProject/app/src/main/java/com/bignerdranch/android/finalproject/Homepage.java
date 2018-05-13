@@ -23,6 +23,7 @@ private TextView invitedNotification;
 private Button createEvent;
 private Button viewHostedEvents;
 private Button viewUpcomingEvents;
+private Button logout;
 private static final String FILENAME = "UserFile";
 
 private String username;
@@ -42,6 +43,7 @@ private User user;
         createEvent = (Button) findViewById(R.id.createEvent);
         viewHostedEvents = (Button) findViewById(R.id.goToHostedButton);
         viewUpcomingEvents = (Button) findViewById(R.id.upcoming);
+        logout = (Button) findViewById(R.id.logoutbutton);
         loadData();
         //loadHosted();
         loadInvited();
@@ -50,6 +52,15 @@ private User user;
 //        User user = (User) intent.getExtras().getSerializable("USER");
         //username = user.username;
 
+        logout.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Homepage.this, Login.class);
+                startActivity(intent);
+                finish();
+            }
+        });
         createEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
