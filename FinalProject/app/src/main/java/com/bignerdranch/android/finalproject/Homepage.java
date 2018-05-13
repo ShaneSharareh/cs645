@@ -139,12 +139,14 @@ private User user;
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 int pendingCount = 0;
-                // This method is called once with the initial value and again
+                // This method is called once with tthe initial value and again
                 // whenever data at this location is updated.
                 // Log.e("Count " ,"Count:"+dataSnapshot.getChildrenCount());
                 for (DataSnapshot child: dataSnapshot.getChildren()) {
                     Event event = child.getValue(Event.class);
+//                    eventRef.child(event.getName()).child("pendingList").child(user.getUsername()).setValue(userInfo);
                     ArrayList<User> pendingList= event.getPendingList();
+
                     for (int i= 0; i<pendingList.size(); i++ ){
                         if(username.equals(pendingList.get(i).getUsername())){
                             pendingCount++;

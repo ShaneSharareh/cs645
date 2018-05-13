@@ -45,7 +45,6 @@ public class UsersListAdapter extends RecyclerView.Adapter<UsersListAdapter.View
         User user = userList.get(position);
 
 
-
         Picasso.get().load(user.getImage())
                 .into(holder.imageView);
 

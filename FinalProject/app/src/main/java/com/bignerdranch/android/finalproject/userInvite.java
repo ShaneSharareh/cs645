@@ -47,8 +47,8 @@ public class userInvite extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_invite);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+//        setSupportActionBar(toolbar);
 
         mStorageRef = FirebaseStorage.getInstance().getReference();
 
@@ -129,13 +129,15 @@ public class userInvite extends AppCompatActivity {
                                 event.addToPendingList(userInfo);
 
                                 Log.i("---- USER: ----", user.getUsername() + " is selected!!! ");
-                                 eventRef.child(event.getName()).child("pendingList").child(user.getUsername()).setValue(userInfo);
+//                                eventRef.child(event.getName()).child("pendingList").child(user.getUsername()).setValue(userInfo);
+                                eventRef.child(event.getName()).setValue(event);
+
                             }
 
                         }
 
-                        User gestUser = new User();
-                        eventRef.child(event.getName()).child("gestList").setValue(gestUser);
+                        User guestUser = new User();
+//                        eventRef.child(event.getName()).child("guestList").setValue(guestUser);
 //                        eventRef.child(event.getName()).setValue(event);
 
                         Intent intent = new Intent(userInvite.this, EventSummary.class);
