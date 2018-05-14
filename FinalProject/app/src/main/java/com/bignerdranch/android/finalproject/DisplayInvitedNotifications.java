@@ -52,7 +52,7 @@ public class DisplayInvitedNotifications extends AppCompatActivity {
                 }*/
                 //JsonObject selectedFromList =(JsonObject) (classList.getItemAtPosition(myItemInt);
             Log.d("item", "" +invitedList.getItemAtPosition(position));
-            viewEvent(invitedList.getItemAtPosition(position).toString());
+           viewEvent(invitedList.getItemAtPosition(position).toString());
             }
         });
 

@@ -103,9 +103,9 @@ public class ViewEventTest extends AppCompatActivity {
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
                     Event event = child.getValue(Event.class);
                     if(event.getName().equals(eventName)){
-                        eventTitle.setText(event.getName());
-                        eventHost.setText(event.getHostname());
-                        eventDescription.setText(event.getDescription());
+                        eventTitle.setText("Title: "+event.getName());
+                        eventHost.setText("Host: "+event.getHostname());
+                        eventDescription.setText("Description: "+event.getDescription());
                     }
 
                     //guestNotification.setText(getResources().getString(R.string.invitedNotification ) +guestCount);

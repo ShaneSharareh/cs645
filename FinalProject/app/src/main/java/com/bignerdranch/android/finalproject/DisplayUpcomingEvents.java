@@ -52,7 +52,7 @@ public class DisplayUpcomingEvents extends AppCompatActivity {
                 }*/
                 //JsonObject selectedFromList =(JsonObject) (classList.getItemAtPosition(myItemInt);
                 Log.d("item", "" +upcomingList.getItemAtPosition(position));
-                viewEvent(upcomingList.getItemAtPosition(position).toString());
+               // viewEvent(upcomingList.getItemAtPosition(position).toString());
             }
         });
 
