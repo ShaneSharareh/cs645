@@ -74,7 +74,7 @@ public class DisplayHostedEvents extends AppCompatActivity {
                     Event event = child.getValue(Event.class);
                     ArrayList<User> guestList = event.getGuestList();
                     if (username.equals(event.getHostname())) {
-                        eventList.add(event.getDate()+" "+event.getName());
+                        eventList.add(event.getName());
                     }
                 }
                 setListView(eventList);
@@ -97,7 +97,7 @@ public class DisplayHostedEvents extends AppCompatActivity {
 
     public void viewEvent(String eventName){
         Intent intent = new Intent(this, ViewEventTest.class);
-        intent.putExtra("EVENTNAME",eventName);
+        intent.putExtra("HOSTEVENTNAME",eventName);
         startActivity(intent);
 
     }

@@ -31,20 +31,37 @@ public class ViewEventTest extends AppCompatActivity {
     private TextView eventDescription;
     private Button acceptButton;
     private Button rejectButton;
+    private Button editButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_event_test);
+        editButton = findViewById(R.id.editButton);
         database = FirebaseDatabase.getInstance();
         eventRef = database.getReference("event");
         eventTitle = (TextView) findViewById(R.id.eventTitle);
         eventHost = (TextView) findViewById(R.id.eventHost);
         eventDescription = (TextView) findViewById(R.id.eventDescription);
         acceptButton = (Button) findViewById(R.id.acceptButton);
+        editButton = (Button) findViewById(R.id.editButton);
         rejectButton = (Button) findViewById(R.id.rejectButton);
         loadData();
         Intent intent = getIntent();
-        eventName = intent.getStringExtra("EVENTNAME");
+        if(intent.hasExtra("EVENTNAME")){
+            eventName = intent.getStringExtra("EVENTNAME");
+            acceptButton.setVisibility(View.VISIBLE);
+            rejectButton.setVisibility(View.VISIBLE);
+            editButton.setVisibility(View.GONE);
+
+        }
+        else{
+            eventName = intent.getStringExtra("HOSTEVENTNAME");
+            Log.d("EventName", "Eventname:"+eventName);
+            editButton.setVisibility(View.VISIBLE);
+            acceptButton.setVisibility(View.GONE);
+            rejectButton.setVisibility(View.GONE);
+        }
         populateEventInfo();
         rejectButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,6 +79,12 @@ public class ViewEventTest extends AppCompatActivity {
             }
         });
 
+        editButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               editEvent();
+            }
+        });
     }
     public interface MyCallback {
         void onCallback(String value);
@@ -176,5 +199,12 @@ public class ViewEventTest extends AppCompatActivity {
 
     public void goToHomePage(){
         finish();
+    }
+
+    public void editEvent(){
+        Intent classIntent = new Intent(this, CreateEventActivity.class);
+        classIntent.putExtra("EDITEVENT",eventName);
+        startActivity(classIntent);
+
     }
 }

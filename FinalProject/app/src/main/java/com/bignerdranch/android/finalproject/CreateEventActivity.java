@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
@@ -22,8 +23,14 @@ import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class CreateEventActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
@@ -34,6 +41,7 @@ public class CreateEventActivity extends AppCompatActivity implements DatePicker
     Button createButton;
     EditText descriptionText;
     Button cancelButton;
+    Button editButton;
 
     int PLACE_PICKER_REQUEST =1;
 
@@ -41,6 +49,9 @@ public class CreateEventActivity extends AppCompatActivity implements DatePicker
     int dayFinal, monthFinal, yearFinal, hourFinal, minuteFinal;
     String monthName, dayFinalStr,monthFinalStr, yearFinalStr, hourFinalStr, minuteFinalStr;
     String username;
+    String eventName;
+    private DatabaseReference eventRef;
+    private FirebaseDatabase database;
 
     Event event = new Event();
 
@@ -49,19 +60,37 @@ public class CreateEventActivity extends AppCompatActivity implements DatePicker
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_event);
+        database = FirebaseDatabase.getInstance();
+        eventRef = database.getReference("event");
         Intent receivingIntent = getIntent();
         username = receivingIntent.getStringExtra("Hostname");
+
         createButton = (Button) findViewById(R.id.createbtn);
 
         timePickerBtn = (Button) findViewById(R.id.timepickerBtn);
-        eventTitle = (TextView) findViewById(R.id.title);
+        eventTitle = (EditText) findViewById(R.id.title);
 
         locationPickerBtn = (Button) findViewById(R.id.locationpickerBtn);
 
         descriptionText = (EditText) findViewById(R.id.descText);
 
         cancelButton = (Button) findViewById(R.id.cancelbutton);
+        editButton  = (Button) findViewById(R.id.editEventButton);
+        if(receivingIntent.hasExtra("EDITEVENT")){
+            eventName = receivingIntent.getStringExtra("EDITEVENT");
+            eventTitle.setText(eventName);
+            eventTitle.setEnabled(false);
+            createButton.setVisibility(View.GONE);
+            editButton.setVisibility(View.VISIBLE);
+            populateEventInfo();
+        }
+        else{
+            eventTitle.setEnabled(true);
+            createButton.setVisibility(View.VISIBLE);
+            editButton.setVisibility(View.GONE);
 
+
+        }
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -160,6 +189,17 @@ public class CreateEventActivity extends AppCompatActivity implements DatePicker
             }
         });
 
+        editButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                eventRef.child(eventTitle.getText().toString()).child("description").setValue(descriptionText.getText().toString());
+                eventRef.child(eventTitle.getText().toString()).child("location").setValue(locationPickerBtn.getText().toString());
+                eventRef.child(eventTitle.getText().toString()).child("date").setValue(timePickerBtn.getText().toString());
+                goToHomepage();
+
+            }
+        });
+
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -244,6 +284,42 @@ public class CreateEventActivity extends AppCompatActivity implements DatePicker
         event.setDate(timeDisplay);
 
 
+    }
+
+    public void populateEventInfo(){
+        eventRef.addListenerForSingleValueEvent(new ValueEventListener() {
+
+            ArrayList<String> eventList = new ArrayList<String>();
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot){
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                // Log.e("Count " ,"Count:"+dataSnapshot.getChildrenCount());
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                    Event tempEvent = child.getValue(Event.class);
+                    if(tempEvent.getName().equals(eventName)){
+                        eventTitle.setText(tempEvent.getName());
+                        descriptionText.setText(tempEvent.getDescription());
+                        locationPickerBtn.setText(tempEvent.getLocation());
+                        timePickerBtn.setText(tempEvent.getDate());
+                    }
+
+                    //guestNotification.setText(getResources().getString(R.string.invitedNotification ) +guestCount);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w("ERRORMESSAGE", "Failed to read value.", error.toException());
+            }
+        });
+    }
+
+    public void goToHomepage(){
+        Intent intent = new Intent(this, Homepage.class);
+        startActivity(intent);
+        finish();
     }
 
 

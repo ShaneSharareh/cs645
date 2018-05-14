@@ -81,7 +81,7 @@ public class DisplayInvitedNotifications extends AppCompatActivity {
                 ArrayList<User> pendingList = event.getPendingList();
                 for (int i = 0; i < pendingList.size(); i++) {
                     if (username.equals(pendingList.get(i).getUsername())) {
-                       eventList.add(event.getDate()+" "+event.getName());
+                       eventList.add(event.getName());
                     }
                 }
                 //guestNotification.setText(getResources().getString(R.string.invitedNotification ) +guestCount);

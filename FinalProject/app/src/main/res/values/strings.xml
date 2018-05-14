@@ -35,6 +35,6 @@
     <string name="title_activity_event_summary">EventSummary</string>
     <string name="title_activity_test">test</string>
     <string name="logout">Logout</string>
-
+    <string name="editEvent">Edit Event</string>
 
 </resources>
