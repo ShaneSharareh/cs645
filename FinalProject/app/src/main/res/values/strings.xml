@@ -13,7 +13,7 @@
     <string name="blankPassword">Please enter your pasword</string>
     <string name="blankEmail">Please enter your pasword</string>
     <string name="invalidlogin">Invalid username or password</string>
-    <string name="hostNotification">Hosted Events: </string>
+    <string name="hostNotification">0</string>
     <string name="invitedNotification">Invited Events:  </string>
     <string name="viewEventsButton">See Events:  </string>
     <string name="myEvents">Hosted Events</string>

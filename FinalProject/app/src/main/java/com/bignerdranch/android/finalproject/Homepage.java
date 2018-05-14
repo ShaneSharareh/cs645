@@ -24,6 +24,7 @@ private Button createEvent;
 private Button viewHostedEvents;
 private Button viewUpcomingEvents;
 private Button logout;
+private ImageView imageNotification;
 private static final String FILENAME = "UserFile";
 
 private String username;
@@ -40,6 +41,7 @@ private User user;
         eventRef = database.getReference("event");
         welcomeTextView = (TextView) findViewById(R.id.welcome);
         invitedNotification = (TextView) findViewById(R.id.invitedNotification);
+        imageNotification = (ImageView) findViewById(R.id.imageNotification);
         createEvent = (Button) findViewById(R.id.createEvent);
         viewHostedEvents = (Button) findViewById(R.id.goToHostedButton);
         viewUpcomingEvents = (Button) findViewById(R.id.upcoming);
@@ -72,6 +74,13 @@ private User user;
         invitedNotification.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                displayInvitedEvent();
+            }
+        });
+        imageNotification.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
                 displayInvitedEvent();
             }
         });
@@ -167,7 +176,8 @@ private User user;
 
 
                 }
-                invitedNotification.setText(getResources().getString(R.string.invitedNotification ) +pendingCount);
+//                invitedNotification.setText(getResources().getString(R.string.invitedNotification ) +pendingCount);
+                invitedNotification.setText(Integer.toString(pendingCount));
             }
 
             @Override
