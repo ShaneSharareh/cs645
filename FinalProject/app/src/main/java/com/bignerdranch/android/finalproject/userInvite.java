@@ -38,10 +38,12 @@ public class userInvite extends AppCompatActivity {
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     private UsersListAdapter mAdapter;
+    public boolean EditMode = false;
 
     Button addButton;
 
-    Event event;
+    Event event,editEvent;
+    List<User> eventAttendees;
 
 
     @Override
@@ -49,36 +51,62 @@ public class userInvite extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_invite);
 
+        addButton = (Button) findViewById(R.id.addbutton);
 //        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 //        setSupportActionBar(toolbar);
 
         mStorageRef = FirebaseStorage.getInstance().getReference();
 
-        Bundle extras = getIntent().getExtras();
+        Intent receivingIntent = getIntent();
 
-        event = (Event) getIntent().getSerializableExtra("newEvent");
+        //Bundle extras = getIntent().getExtras();
+
+        if(receivingIntent.hasExtra("newEvent")){
+            event = (Event) getIntent().getSerializableExtra("newEvent");
+            EditMode = false;
+            eventAttendees.clear();
+            addButton.setText("Add");
+        }
+        else{
+            event = (Event) getIntent().getSerializableExtra("editEvent");
+
+            eventAttendees = event.getPendingList();
+            EditMode = true;
+            addButton.setText("Update");
+        }
+
+
         //The key argument here must match that used in the other activity
         // Log.i("+++ Event Title ++ ",event.getDescription());
         // Log.i("+++ Event Location ++ ",event.getLocation());
-
-
 
 
         //String key = eventRef.child("TEsting").push().getKey();
         // Log.i("--- TEsting Key --- ",key);
         //User joe = new User("","joe", "lastName", "username", "email", "password");
 
+
+
+
         eventRef.child(event.getName()).setValue(event);
-
-
         usersRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 userList.clear();
 
 
-                for (DataSnapshot child: dataSnapshot.getChildren()) {
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
                     User user = child.getValue(User.class);
+
+                    if(EditMode){
+
+                        for (int i=0;i<eventAttendees.size();i++){
+                            if(eventAttendees.get(i).getUsername().equals(user.getUsername()))
+                                user.setSelected(true);
+                        }
+
+                    }
+
 
                     userList.add(user);
 
@@ -94,10 +122,9 @@ public class userInvite extends AppCompatActivity {
                 recyclerView.setAdapter(mAdapter);
 
 //                List<User> users = ((UsersListAdapter) mAdapter).getUserList();
-                userListFromAdapter.clear();
-                userListFromAdapter = ((UsersListAdapter) mAdapter).getUserList();
-                Log.i("-- userListFromAdapter -- ",userListFromAdapter.toString());
-
+//                userListFromAdapter.clear();
+//                userListFromAdapter = ((UsersListAdapter) mAdapter).getUserList();
+//                Log.i("-- userListFromAdapter -- ", userListFromAdapter.toString());
 
 
                 eventRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -111,7 +138,7 @@ public class userInvite extends AppCompatActivity {
 
                     }
                 });
-                addButton = (Button) findViewById(R.id.addbutton);
+
                 addButton.setOnClickListener(new View.OnClickListener() {
 
 
@@ -119,7 +146,7 @@ public class userInvite extends AppCompatActivity {
                     public void onClick(View v) {
                         users.clear();
                         users = ((UsersListAdapter) mAdapter).getUserList();
-
+                        event.removeAllFromPendingList();
 
                         for (int i = 0; i < users.size(); i++) {
                             User userInfo = new User();
@@ -163,6 +190,7 @@ public class userInvite extends AppCompatActivity {
 
             }
         });
+
     }
 
 

@@ -32,6 +32,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class CreateEventActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
     Button timePickerBtn;
@@ -43,18 +44,19 @@ public class CreateEventActivity extends AppCompatActivity implements DatePicker
     Button cancelButton;
     Button editButton;
 
-    int PLACE_PICKER_REQUEST =1;
+    public int PLACE_PICKER_REQUEST =1;
 
-    int day, month, year, hour, minutes;
-    int dayFinal, monthFinal, yearFinal, hourFinal, minuteFinal;
-    String monthName, dayFinalStr,monthFinalStr, yearFinalStr, hourFinalStr, minuteFinalStr;
-    String username;
-    String eventName;
+    public int day, month, year, hour, minutes;
+    public int dayFinal, monthFinal, yearFinal, hourFinal, minuteFinal;
+    public String monthName, dayFinalStr,monthFinalStr, yearFinalStr, hourFinalStr, minuteFinalStr;
+    public String username;
+    public  String eventName;
     private DatabaseReference eventRef;
     private FirebaseDatabase database;
+    public boolean EditMode = false;
 
-    Event event = new Event();
-
+    public Event event = new Event();
+    public Event editEvent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,8 +85,10 @@ public class CreateEventActivity extends AppCompatActivity implements DatePicker
             createButton.setVisibility(View.GONE);
             editButton.setVisibility(View.VISIBLE);
             populateEventInfo();
+            EditMode = true;
         }
         else{
+            EditMode = false;
             eventTitle.setEnabled(true);
             createButton.setVisibility(View.VISIBLE);
             editButton.setVisibility(View.GONE);
@@ -149,9 +153,7 @@ public class CreateEventActivity extends AppCompatActivity implements DatePicker
 
                 Calendar calendar = Calendar.getInstance();
                 year = calendar.get(Calendar.YEAR);
-
                 month = calendar.get(Calendar.MONTH);
-
                 day = calendar.get(Calendar.DAY_OF_MONTH);
 
 
@@ -182,10 +184,13 @@ public class CreateEventActivity extends AppCompatActivity implements DatePicker
         createButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 event.setHostname(username);
                 Intent intent = new Intent(CreateEventActivity.this, userInvite.class);
                 intent.putExtra("newEvent", event);
                 startActivity(intent);
+
+
             }
         });
 
@@ -195,7 +200,10 @@ public class CreateEventActivity extends AppCompatActivity implements DatePicker
                 eventRef.child(eventTitle.getText().toString()).child("description").setValue(descriptionText.getText().toString());
                 eventRef.child(eventTitle.getText().toString()).child("location").setValue(locationPickerBtn.getText().toString());
                 eventRef.child(eventTitle.getText().toString()).child("date").setValue(timePickerBtn.getText().toString());
-                goToHomepage();
+                //goToHomepage();
+                Intent intent = new Intent(CreateEventActivity.this, userInvite.class);
+                intent.putExtra("editEvent", editEvent);
+                startActivity(intent);
 
             }
         });
@@ -302,10 +310,14 @@ public class CreateEventActivity extends AppCompatActivity implements DatePicker
                         descriptionText.setText(tempEvent.getDescription());
                         locationPickerBtn.setText(tempEvent.getLocation());
                         timePickerBtn.setText(tempEvent.getDate());
+                        // eventAttendees.clear();
+                        // eventAttendees = tempEvent.getPendingList();
+                        editEvent = tempEvent;
                     }
 
                     //guestNotification.setText(getResources().getString(R.string.invitedNotification ) +guestCount);
                 }
+
             }
 
             @Override

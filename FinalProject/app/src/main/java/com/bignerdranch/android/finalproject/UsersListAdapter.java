@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -43,7 +44,9 @@ public class UsersListAdapter extends RecyclerView.Adapter<UsersListAdapter.View
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
 
         String userImgUrl = "https://firebasestorage.googleapis.com/v0/b/cs646-f50aa.appspot.com/o/cs645_UserImg%2Fuser.png?alt=media&token=50d17bc7-5b35-47e6-9f90-da0cc83f3097";
+
         User user = userList.get(position);
+
 
 
         if(user.getImage().equals(""))
@@ -63,18 +66,23 @@ public class UsersListAdapter extends RecyclerView.Adapter<UsersListAdapter.View
         holder.checkedBox.setTag(userList.get(position));
 
 
-        holder.checkedBox.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                CheckBox checkBox = (CheckBox) v;
-                User user = (User) checkBox.getTag();
+        holder.checkedBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
-                user.setSelected(checkBox.isChecked());
-                userList.get(pos).setSelected(checkBox.isChecked());
-
-                Log.i("-- USER SELECTED ---",user.getUsername());
-
-            }
+           @Override
+           public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+               CheckBox checkBox = (CheckBox) buttonView;
+               User user = (User) checkBox.getTag();
+                if(checkBox.isChecked()){
+                    user.setSelected(true);
+                    userList.get(pos).setSelected(true);
+                }else{
+                    user.setSelected(false);
+                    userList.get(pos).setSelected(false);
+                }
+               Log.i("-- USER SELECTED ---",user.getUsername()+" --- "+Boolean.toString(isChecked));
+           }
         });
+
     }
 
     @Override
