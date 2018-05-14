@@ -17,6 +17,11 @@ import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+/*
+ *
+ * Created by Ali Minaei --  May 13,2014
+ *
+ * */
 
 public class UsersListAdapter extends RecyclerView.Adapter<UsersListAdapter.ViewHolder> {
 

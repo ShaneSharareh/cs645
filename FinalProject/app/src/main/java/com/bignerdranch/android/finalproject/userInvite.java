@@ -21,6 +21,12 @@ import com.google.firebase.storage.StorageReference;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+ *
+ * Created by Ali Minaei --  May 13,2014
+ *
+ * */
+
 public class userInvite extends AppCompatActivity {
     // Write a message to the database
     FirebaseDatabase database = FirebaseDatabase.getInstance();

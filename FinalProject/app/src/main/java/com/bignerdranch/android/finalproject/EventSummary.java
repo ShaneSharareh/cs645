@@ -6,14 +6,23 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+
+/*
+*
+* Created by Ali Minaei --  May 13,2014
+*
+* */
 
 public class EventSummary extends AppCompatActivity {
 
-    Event event;
+    private Event event;
 
-    EditText evenSummary;
+    private EditText evenSummary;
 
+    private Button doneBtn;
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
@@ -32,6 +41,16 @@ public class EventSummary extends AppCompatActivity {
         event = (Event) getIntent().getSerializableExtra("event");
 
         evenSummary = (EditText) findViewById(R.id.eventsummary);
+        doneBtn = (Button) findViewById(R.id.doneBtn);
+
+        doneBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(EventSummary.this, Homepage.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
 
         String evenSummaryStr = "Event: "+event.getName()+"\n\n" +
