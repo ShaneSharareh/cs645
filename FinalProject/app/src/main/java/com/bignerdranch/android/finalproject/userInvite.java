@@ -64,7 +64,6 @@ public class userInvite extends AppCompatActivity {
         if(receivingIntent.hasExtra("newEvent")){
             event = (Event) getIntent().getSerializableExtra("newEvent");
             EditMode = false;
-            eventAttendees.clear();
             addButton.setText("Add");
         }
         else{
