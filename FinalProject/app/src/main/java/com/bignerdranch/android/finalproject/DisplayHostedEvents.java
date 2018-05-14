@@ -128,6 +128,20 @@ public class DisplayHostedEvents extends AppCompatActivity {
             recyclerviewAcrion = action;
             // Log.i("-- recyclerviewInterface -- ", recyclerviewEvent.getHostname()+" --> is Selected ");
             // Log.i("-- recyclerviewInterface -- ", " Action is : "+recyclerviewAcrion+" --> is Selected ");
+            if(recyclerviewAcrion.equals("DELETE")){
+                eventRef.child(recyclerviewEvent.getName()).removeValue();
+                finish();
+            }
+            else if(recyclerviewAcrion.equals("EDIT")){
+                editEvent(recyclerviewEvent.getName());
+            }
         }
     };
+    public void editEvent(String eventName){
+        Intent intent = new Intent(this, CreateEventActivity.class);
+        intent.putExtra("EDITEVENT",eventName);
+        startActivity(intent);
+
+
+    }
 }
