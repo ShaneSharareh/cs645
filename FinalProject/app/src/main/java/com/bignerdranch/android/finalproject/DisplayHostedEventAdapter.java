@@ -11,6 +11,12 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+/*
+ *
+ * Created by Ali Minaei --  May 13,2014
+ *
+ * */
+
 public class DisplayHostedEventAdapter extends RecyclerView.Adapter<DisplayHostedEventAdapter.ViewHolder> {
 
     private ArrayList<Event> eventList = new ArrayList<Event>();

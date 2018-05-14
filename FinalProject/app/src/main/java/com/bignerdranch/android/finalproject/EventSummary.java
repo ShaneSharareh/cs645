@@ -10,6 +10,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+/*
+*
+* Created by Ali Minaei --  May 13,2014
+*
+* */
+
 public class EventSummary extends AppCompatActivity {
 
     private Event event;

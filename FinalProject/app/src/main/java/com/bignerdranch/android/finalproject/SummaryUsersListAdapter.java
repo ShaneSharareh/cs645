@@ -14,6 +14,12 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+/*
+ *
+ * Created by Ali Minaei --  May 13,2014
+ *
+ * */
+
 public class SummaryUsersListAdapter extends RecyclerView.Adapter<SummaryUsersListAdapter.ViewHolder> {
 
     List<User> userList;
