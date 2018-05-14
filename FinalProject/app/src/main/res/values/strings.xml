@@ -38,6 +38,8 @@
     <string name="editEvent">Edit Event</string>
     <string name="cancel">Cancel</string>
     <string name="name">Name</string>
+    <string name="summary">Summary</string>
+    <string name="donebtn">Done</string>
 
 
 </resources>
