@@ -37,5 +37,9 @@
     <string name="logout">Logout</string>
     <string name="editEvent">Edit Event</string>
     <string name="cancel">Cancel</string>
+<<<<<<< Updated upstream
+=======
+    <string name="name">Name</string>
+>>>>>>> Stashed changes
 
 </resources>
