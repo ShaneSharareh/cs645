@@ -198,6 +198,8 @@ public class ViewEventTest extends AppCompatActivity {
     }
 
     public void goToHomePage(){
+        Intent intent = new Intent(this, Homepage.class);
+        startActivity(intent);
         finish();
     }
 
