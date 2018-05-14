@@ -8,7 +8,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -23,19 +25,25 @@ public class DisplayUpcomingEvents extends AppCompatActivity {
     private static final String FILENAME = "UserFile";
 
     private String username;
+    private Button cancelButton;
     private DatabaseReference eventRef;
     private FirebaseDatabase database;
     private User user;
     private ListView upcomingList;
+    private TextView invitedNotification;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_upcoming_events);
+        cancelButton = (Button) findViewById(R.id.cancel);
         upcomingList = (ListView) findViewById(R.id.upcomingEventList);
+        invitedNotification = (TextView) findViewById(R.id.invitedNotification);
         database = FirebaseDatabase.getInstance();
         eventRef = database.getReference("event");
         loadData();
         loadUpcoming();
+        loadInvited();
+
         upcomingList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> myAdapter, View myView, int position, long myLong) {
                 /*try {
@@ -47,6 +55,22 @@ public class DisplayUpcomingEvents extends AppCompatActivity {
                 viewEvent(upcomingList.getItemAtPosition(position).toString());
             }
         });
+
+        invitedNotification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                displayInvitedEvent();
+            }
+        });
+
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+
     }
     public void loadData(){
         // Capture the layout's TextView and set the string as its text
@@ -90,6 +114,37 @@ public class DisplayUpcomingEvents extends AppCompatActivity {
             }
         });
     }
+
+    public void loadInvited(){
+        eventRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                int pendingCount = 0;
+                // This method is called once with tthe initial value and again
+                // whenever data at this location is updated.
+                // Log.e("Count " ,"Count:"+dataSnapshot.getChildrenCount());
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                    Event event = child.getValue(Event.class);
+//                    eventRef.child(event.getName()).child("pendingList").child(user.getUsername()).setValue(userInfo);
+                    ArrayList<User> pendingList = event.getPendingList();
+
+                    for (int i = 0; i < pendingList.size(); i++) {
+                        if (username.equals(pendingList.get(i).getUsername())) {
+                            pendingCount++;
+                        }
+                    }
+
+
+                }
+//                invitedNotification.setText(getResources().getString(R.string.invitedNotification ) +pendingCount);
+                invitedNotification.setText(Integer.toString(pendingCount));
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });}
     public void setListView(ArrayList<String> eventList){
         ArrayAdapter eventAdapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, eventList);
@@ -102,6 +157,11 @@ public class DisplayUpcomingEvents extends AppCompatActivity {
         Intent intent = new Intent(this, ViewEventTest.class);
         intent.putExtra("EVENTNAME",eventName);
         startActivity(intent);
+
+    }
+    public void displayInvitedEvent(){
+            Intent intent = new Intent(this, DisplayInvitedNotifications.class);
+            startActivity(intent);
 
     }
 }

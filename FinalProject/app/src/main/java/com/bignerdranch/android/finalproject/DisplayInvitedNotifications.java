@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
@@ -32,11 +33,13 @@ public class DisplayInvitedNotifications extends AppCompatActivity {
     private FirebaseDatabase database;
     private User user;
     private ListView invitedList;
+    Button cancelButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_invited_notifications);
         invitedList = (ListView) findViewById(R.id.invitedEventList);
+        cancelButton = (Button) findViewById(R.id.cancel);
         database = FirebaseDatabase.getInstance();
         eventRef = database.getReference("event");
         loadData();
@@ -50,6 +53,13 @@ public class DisplayInvitedNotifications extends AppCompatActivity {
                 //JsonObject selectedFromList =(JsonObject) (classList.getItemAtPosition(myItemInt);
             Log.d("item", "" +invitedList.getItemAtPosition(position));
             viewEvent(invitedList.getItemAtPosition(position).toString());
+            }
+        });
+
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
 

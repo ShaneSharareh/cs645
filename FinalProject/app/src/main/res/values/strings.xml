@@ -36,5 +36,6 @@
     <string name="title_activity_test">test</string>
     <string name="logout">Logout</string>
     <string name="editEvent">Edit Event</string>
+    <string name="cancel">Cancel</string>
 
 </resources>
