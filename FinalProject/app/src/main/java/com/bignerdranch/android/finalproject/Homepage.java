@@ -14,6 +14,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -25,12 +26,14 @@ private Button viewHostedEvents;
 private Button viewUpcomingEvents;
 private Button logout;
 private ImageView imageNotification;
+private ImageView userImage;
 private static final String FILENAME = "UserFile";
 
 private String username;
 private DatabaseReference eventRef;
 private FirebaseDatabase database;
 private User user;
+private final String userImgUrl = "https://firebasestorage.googleapis.com/v0/b/cs646-f50aa.appspot.com/o/cs645_UserImg%2Fuser.png?alt=media&token=50d17bc7-5b35-47e6-9f90-da0cc83f3097";
 
 
     @Override
@@ -46,6 +49,7 @@ private User user;
         viewHostedEvents = (Button) findViewById(R.id.goToHostedButton);
         viewUpcomingEvents = (Button) findViewById(R.id.upcoming);
         logout = (Button) findViewById(R.id.logoutbutton);
+        userImage = (ImageView) findViewById(R.id.userimg);
         loadData();
         //loadHosted();
         loadInvited();
@@ -53,6 +57,8 @@ private User user;
         //      Intent intent = getIntent();
 //        User user = (User) intent.getExtras().getSerializable("USER");
         //username = user.username;
+
+
 
         logout.setOnClickListener(new View.OnClickListener(){
 
@@ -109,6 +115,14 @@ private User user;
         if (!savedUser.equals("")) {
             user = gson.fromJson(savedUser, User.class);
             username = user.getUsername();
+
+            if(user.getImage().equals(""))
+                Picasso.get().load(userImgUrl)
+                        .into(userImage);
+            else
+                Picasso.get().load(user.getImage())
+                        .into(userImage);
+
             welcomeTextView.setText("Welcome "+user.getFirstName());
 
         } else {
