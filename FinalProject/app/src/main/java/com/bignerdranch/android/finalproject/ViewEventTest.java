@@ -67,7 +67,7 @@ public class ViewEventTest extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 deleteFromPendingList();
-                goToHomePage();
+
             }
         });
 
@@ -75,7 +75,7 @@ public class ViewEventTest extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 addToGuestList();
-                goToHomePage();
+
             }
         });
 
@@ -145,10 +145,19 @@ public class ViewEventTest extends AppCompatActivity {
                 // Log.e("Count " ,"Count:"+dataSnapshot.getChildrenCount());
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
                     Event event = child.getValue(Event.class);
-                    if(event.getName().equals(eventName)){
-                        event.removeFromPendingList(user);
-                        eventRef.child(eventName).child("pendingList").setValue(event.getPendingList());
+                    if(event.getName().equals(eventName)) {
+                        ArrayList<User> tempPendingList = event.getPendingList();
+                        for (int i = 0; i < tempPendingList.size(); i++) {
+                            if (tempPendingList.get(i).getUsername().equals(user.getUsername())) {
+                                event.removeFromPendingList(i);
+                                break;
+                            }
+                        }
+                        eventRef.child(event.getName()).child("pendingList").setValue(event.getPendingList());
+                        goToHomePage();
+
                         break;
+
                     }
 
                     //guestNotification.setText(getResources().getString(R.string.invitedNotification ) +guestCount);
@@ -177,12 +186,20 @@ public class ViewEventTest extends AppCompatActivity {
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
                     Event event = child.getValue(Event.class);
                     if(event.getName().equals(eventName)){
-                        event.removeFromPendingList(user);
-                        event.addToGuestList(user);
+                        ArrayList<User> tempPendingList = event.getPendingList();
+                        for(int i = 0; i<tempPendingList.size(); i++) {
+                            if (tempPendingList.get(i).getUsername().equals(user.getUsername())) {
+                                event.removeFromPendingList(i);
+                                event.addToGuestList(user);
+                                break;
+                            }
+                        }
+                        eventRef.child(event.getName()).child("guestList").setValue(event.getGuestList());
+                        eventRef.child(event.getName()).child("pendingList").setValue(event.getPendingList());
+                        goToHomePage();
 
-                       eventRef.child(eventName).child("guestList").setValue(event.getGuestList());
-                        eventRef.child(eventName).child("pendingList").setValue(event.getPendingList());
                         break;
+
                     }
 
                     //guestNotification.setText(getResources().getString(R.string.invitedNotification ) +guestCount);

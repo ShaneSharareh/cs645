@@ -64,7 +64,7 @@ public class Event implements Serializable {
 
     public void removeFromGuestList(User user){ guestList.remove(user);}
 
-    public void removeFromPendingList(User user){ pendingList.remove(user);}
+    public void removeFromPendingList(int i){ pendingList.remove(i);}
     public void removeAllFromPendingList(){ pendingList.clear();}
 
     public String getHostname() {
