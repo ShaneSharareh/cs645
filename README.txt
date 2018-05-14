@@ -19,3 +19,15 @@ You then have an option to accept the event invitation(sends you to guest list),
 -Wrote DisplayUpcomingEvents
 
 Shane Sharareh
+
+Ali Minaei code contribution for CS646 Final Project:
+- I wrote most of the front end and GUI code.
+- I wrote following Java code:
+- CreateEventActivity.java        
+- EventSummary.java  
+- SummaryUsersListAdapter.java  
+- UsersListAdapter.java
+- DisplayHostedEventAdapter.java  
+- RecyclerviewInterface.java  
+- userInvite.java              
+
